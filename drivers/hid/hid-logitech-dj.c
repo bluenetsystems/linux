@@ -1790,6 +1790,9 @@ static int logi_dj_raw_event(struct hid_device *hdev,
 	if (!hdev->report_enum[HID_INPUT_REPORT].numbered) {
 
 		if (djrcv_dev->unnumbered_application == HID_GD_KEYBOARD) {
+			if (size < 2)
+				return false;
+
 			/*
 			 * For the keyboard, we can reuse the same report by
 			 * using the second byte which is constant in the USB
@@ -2110,6 +2113,10 @@ static const struct hid_device_id logi_dj_receivers[] = {
 	{ /* Logitech lightspeed receiver (0xc545) */
 	  HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH,
 		USB_DEVICE_ID_LOGITECH_NANO_RECEIVER_LIGHTSPEED_1_5),
+	.driver_data = recvr_type_gaming_hidpp_ls_1_3},
+	{ /* Logitech lightspeed receiver (0xc541) */
+	  HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH,
+		USB_DEVICE_ID_LOGITECH_NANO_RECEIVER_LIGHTSPEED_1_6),
 	.driver_data = recvr_type_gaming_hidpp_ls_1_3},
 
 	{ /* Logitech 27 MHz HID++ 1.0 receiver (0xc513) */
